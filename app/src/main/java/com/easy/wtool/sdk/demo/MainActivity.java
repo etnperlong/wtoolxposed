@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +20,8 @@ import com.easy.wtool.sdk.WToolSDK;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.Map;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     Context mContext;
     // Used to load the 'native-lib' library on application startup.
 
-
+    private ConfigUtils configUtils;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
 
         final WToolSDK wToolSDK = new WToolSDK();
         this.setTitle(this.getTitle()+" - V"+wToolSDK.getVersion());
+
+        configUtils = new ConfigUtils(this);
 
 
 
@@ -54,7 +57,8 @@ public class MainActivity extends AppCompatActivity {
         final EditText editText = (EditText)findViewById(R.id.editText);
         final EditText editImage = (EditText)findViewById(R.id.editImage);
         final TextView editContent = (TextView)findViewById(R.id.editContent);
-
+        editAuthCode.setText(configUtils.get(ConfigUtils.KEY_AUTHCODE,""));
+        editWxId.setText(configUtils.get(ConfigUtils.KEY_WXID,""));
 
         editContent.setMovementMethod(ScrollingMovementMethod.getInstance());
         //处理消息 回调的Handler
@@ -90,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 //初始化
                 parseResult(wToolSDK.init(editAuthCode.getText().toString()));
+                configUtils.save(ConfigUtils.KEY_AUTHCODE,editAuthCode.getText().toString());
             }
         });
         buttonText.setOnClickListener(new View.OnClickListener() {
@@ -102,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 //发送文本
                 parseResult(wToolSDK.sendText(editWxId.getText().toString(),editText.getText().toString()));
+                configUtils.save(ConfigUtils.KEY_WXID,editWxId.getText().toString());
             }
         });
         buttonImage.setOnClickListener(new View.OnClickListener() {
@@ -114,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 //发送图片
                 parseResult(wToolSDK.sendImage(editWxId.getText().toString(),editImage.getText().toString()));
+                configUtils.save(ConfigUtils.KEY_WXID,editWxId.getText().toString());
             }
         });
         buttonFriends.setOnClickListener(new View.OnClickListener() {
