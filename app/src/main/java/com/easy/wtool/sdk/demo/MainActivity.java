@@ -142,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         buttonStartMessage.setTag(0);
+        buttonStartMessage.setVisibility(View.INVISIBLE);
         buttonStartMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
