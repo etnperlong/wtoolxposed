@@ -19,7 +19,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:background="?attr/colorButtonNormal" />
 
     <EditText
         android:layout_width="match_parent"
@@ -33,36 +34,55 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+    <RadioGroup android:id="@+id/radioGroupWxid"
+        android:contentDescription="WxId"
+        android:layout_below="@+id/editAuthCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:orientation="horizontal">
+    <RadioButton
+        android:text="好友"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editAuthCode"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/radioButtonFriend"
+        android:checked="true" />
+
+    <RadioButton
+        android:text="群"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editAuthCode"
+        android:layout_alignLeft="@+id/buttonVideo"
+        android:layout_alignStart="@+id/buttonVideo"
+        android:id="@+id/radioButtonChatroom" />
+    </RadioGroup>
     <TextView
         android:text="wxid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView"
-        android:layout_below="@+id/editAuthCode"
+        android:id="@+id/labelWxid"
+        android:layout_below="@+id/radioGroupWxid"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:background="?attr/colorButtonNormal" />
 
     <TextView
         android:text="文本"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView2"
-        android:layout_below="@+id/editWxId"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text=""
-        android:ems="10"
-        android:id="@+id/editWxId"
-        android:layout_below="@+id/textView"
+        android:background="?attr/colorButtonNormal"
+        android:layout_below="@+id/labelWxid"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_marginTop="12dp" />
 
     <EditText
         android:layout_width="match_parent"
@@ -76,47 +96,49 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
-
     <TextView
         android:text="图片文件"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/labelImageFile"
+        android:background="?attr/colorButtonNormal"
         android:layout_below="@+id/editText"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/textView3" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="/storage/emulated/0/test/imagetest.jpg"
-        android:ems="10"
-        android:id="@+id/editImage"
-        android:layout_below="@+id/textView3"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <TextView
+        android:text="语音文件"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/buttonChatrooms"
+        android:layout_height="wrap_content"
+        android:id="@+id/labelVoiceFile"
+        android:background="?attr/colorButtonNormal"
+        android:layout_below="@+id/labelImageFile"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:maxLines="12"
-        android:id="@+id/editContent"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:textColor="@android:color/black" />
+        android:layout_marginTop="12dp"/>
+
+    <TextView
+        android:text="视频文件"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/labelVideoFile"
+        android:background="?attr/colorButtonNormal"
+        android:layout_below="@+id/labelVoiceFile"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="12dp"/>
+
+
 
     <Button
         android:text="初始化"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/buttonInit"
-        android:layout_below="@+id/editImage"
+        android:layout_below="@+id/labelVideoFile"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="12dp"/>
 
     <Button
         android:text="监听消息"
@@ -143,17 +165,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/buttonImage"
-        android:layout_below="@+id/editImage"
+        android:layout_below="@+id/labelVideoFile"
         android:layout_alignLeft="@+id/buttonStartMessage"
-        android:layout_alignStart="@+id/buttonStartMessage" />
+        android:layout_alignStart="@+id/buttonStartMessage"
+        android:layout_marginTop="12dp"/>
 
     <Button
         android:text="发送文本"
         android:layout_width="wrap_content"
         android:id="@+id/buttonText"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editImage"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/labelVideoFile"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"/>
 
     <Button
         android:text="好友列表"
@@ -163,5 +187,36 @@
         android:layout_below="@+id/buttonText"
         android:layout_alignLeft="@+id/buttonText"
         android:layout_alignStart="@+id/buttonText" />
+
+
+
+    <Button
+        android:text="发送语音"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonChatrooms"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/buttonVoice" />
+
+    <Button
+        android:text="发送视频"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonFriends"
+        android:layout_alignLeft="@+id/buttonFriends"
+        android:layout_alignStart="@+id/buttonFriends"
+        android:id="@+id/buttonVideo" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:maxLines="12"
+        android:id="@+id/editContent"
+        android:textColor="@android:color/black"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/buttonVoice" />
+
 
 </RelativeLayout>
