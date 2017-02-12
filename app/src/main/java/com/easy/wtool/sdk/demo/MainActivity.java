@@ -16,6 +16,7 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -69,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         this.setTitle(this.getTitle() + " - V" + wToolSDK.getVersion());
 
         configUtils = new ConfigUtils(this);
-
+        wToolSDK.encodeValue("1");
 
         // Example of a call to a native method
         //TextView tv = (TextView) findViewById(R.id.sample_text);
@@ -114,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
 
                 MessageEvent event = (MessageEvent) msg.obj;
 
-                editContent.append("message: " + event.getTalker() + "," + event.getContent() + "\n");
+                editContent.append("message: " + event.getTalker() + "," +wToolSDK.decodeValue(event.getContent()) + "\n");
                 super.handleMessage(msg);
             }
         };
@@ -162,20 +163,19 @@ public class MainActivity extends AppCompatActivity {
                     if (selectedWxIdIndex < 0) {
                         selectedWxIdIndex = 0;
                     }
+
                     final JSONObject jsonObject = new JSONObject(content);
                     if (jsonObject.getInt("result") == 0) {
                         final JSONArray jsonArray = jsonObject.getJSONArray("content");
                         if (jsonArray.length() > 0) {
                             final String[] friends = new String[jsonArray.length()];
                             for (int i = 0; i < jsonArray.length(); i++) {
-                                friends[i] = jsonArray.getJSONObject(i).getString("nickname");
+                                friends[i] = wToolSDK.decodeValue(jsonArray.getJSONObject(i).getString("nickname"));
                                 if(radioButtonChatroom.isChecked() && friends[i].equals(""))
                                 {
                                     if(jsonArray.getJSONObject(i).has("displayname")) {
-                                        friends[i] = jsonArray.getJSONObject(i).getString("displayname");
-                                        if(friends[i].length()>20) {
-                                            friends[i] = friends[i].substring(0, 15) + "...";
-                                        }
+                                        friends[i] = wToolSDK.decodeValue(jsonArray.getJSONObject(i).getString("displayname"));
+                                        friends[i] = friends[i].substring(0, 20) + "...";
                                     }
                                 }
                             }
@@ -200,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     try {
-                                        toWxId = jsonArray.getJSONObject(selectedWxIdIndex).getString("wxid");
+                                        toWxId = wToolSDK.decodeValue(jsonArray.getJSONObject(selectedWxIdIndex).getString("wxid"));
                                         labelWxid.setText(DEF_TALKER + "：" + friends[selectedWxIdIndex]);
                                     } catch (Exception e) {
                                         toWxId = "";
@@ -222,7 +222,7 @@ public class MainActivity extends AppCompatActivity {
                         text = jsonObject.getString("errmsg");
                     }
                 } catch (Exception e) {
-                    text = "解析结果失败>>"+e.toString();
+                    text = "解析结果失败";
                     Log.e(LOG_TAG, "jsonerr", e);
                 }
                 if (text.length() > 0) {
@@ -353,7 +353,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         buttonStartMessage.setTag(0);
-        //buttonStartMessage.setVisibility(View.INVISIBLE);
+
         buttonStartMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
