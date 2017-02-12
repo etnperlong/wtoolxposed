@@ -173,7 +173,9 @@ public class MainActivity extends AppCompatActivity {
                                 {
                                     if(jsonArray.getJSONObject(i).has("displayname")) {
                                         friends[i] = jsonArray.getJSONObject(i).getString("displayname");
-                                        friends[i] = friends[i].substring(0, 20) + "...";
+                                        if(friends[i].length()>20) {
+                                            friends[i] = friends[i].substring(0, 15) + "...";
+                                        }
                                     }
                                 }
                             }
@@ -220,7 +222,7 @@ public class MainActivity extends AppCompatActivity {
                         text = jsonObject.getString("errmsg");
                     }
                 } catch (Exception e) {
-                    text = "解析结果失败";
+                    text = "解析结果失败>>"+e.toString();
                     Log.e(LOG_TAG, "jsonerr", e);
                 }
                 if (text.length() > 0) {
