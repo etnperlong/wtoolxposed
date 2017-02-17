@@ -175,7 +175,9 @@ public class MainActivity extends AppCompatActivity {
                                 {
                                     if(jsonArray.getJSONObject(i).has("displayname")) {
                                         friends[i] = wToolSDK.decodeValue(jsonArray.getJSONObject(i).getString("displayname"));
-                                        friends[i] = friends[i].substring(0, 20) + "...";
+                                        if(friends[i].length()>20) {
+                                            friends[i] = friends[i].substring(0, 20) + "...";
+                                        }
                                     }
                                 }
                             }
