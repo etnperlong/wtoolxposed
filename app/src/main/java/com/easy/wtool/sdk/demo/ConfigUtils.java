@@ -1,4 +1,4 @@
-package com.easy.wtool.sdk.demo.robot;
+package com.easy.wtool.sdk.demo;
 
 import android.content.Context;
 import android.content.SharedPreferences;
